@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fake WhatsApp Ban</title>
+  <style>
+    body{
+      margin:0;
+      font-family: system-ui, Arial, sans-serif;
+      background:#0b0b0b;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+    }
+    .card{
+      width:360px;
+      background:linear-gradient(180deg,#0f0f0f,#141414);
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 8px 30px rgba(0,0,0,.6);
+      text-align:center;
+    }
+    h1{font-size:18px;margin:0 0 8px}
+    p{margin:0 0 14px;color:#bdbdbd;font-size:13px}
+    .row{display:flex;gap:8px}
+    input{
+      flex:1;
+      padding:10px;
+      border-radius:8px;
+      border:1px solid #222;
+      background:#0b0b0b;
+      color:#fff;
+      outline:none;
+      font-size:14px;
+    }
+    button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+      background:#25D366;
+      color:#042;
+    }
+    .screen{
+      margin-top:14px;
+      background:#111;
+      padding:14px;
+      border-radius:8px;
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+    }
+    .status{font-weight:700}
+    .muted{font-size:12px;color:#cfcfcf;margin-top:8px}
+    .ban{color:#ffdddd;border:1px solid #440000;padding:8px;border-radius:6px}
+    .failed{color:#ffd6d6;border:1px solid #aa2222;padding:8px;border-radius:6px; background: rgba(170,34,34,0.06);}
+    .ok{color:#ddffdd;border:1px solid #227722;padding:8px;border-radius:6px; background: rgba(34,119,34,0.06);}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>DARKRAW V1</h1>
+    <p>Enter a phone number then press <strong>Send</strong>.</p>
+
+    <div class="row">
+      <input id="no" type="text" placeholder="+62 8xx... or 08xx..." />
+      <button id="send">Send</button>
+    </div>
+
+    <div class="screen" id="screen">
+      <div class="status" id="msg">darkraw...</div>
+      <div class="muted" id="sub">Bug project...</div>
+    </div>
+  </div>
+
+  <script>
+    const noInput = document.getElementById('no');
+    const send = document.getElementById('send');
+    const msg = document.getElementById('msg');
+    const sub = document.getElementById('sub');
+
+    function trim(s){ return (s||'').toString().trim(); }
+
+    // normalize: remove spaces, dashes, parentheses
+    function normalizeNumber(s){
+      return s.replace(/[\s\-]/g, '');
+    }
+
+    function isValidStart(s){
+      return s.startsWith('08') || s.startsWith('+62');
+    }
+
+    send.addEventListener('click', () => {
+      const raw = trim(noInput.value);
+      const nomor = normalizeNumber(raw);
+
+      if(!nomor){
+        msg.textContent = 'Please enter a number!';
+        sub.textContent = 'Example: +62 812-3456-7890 or 0812-3456-7890';
+        msg.className = 'status failed';
+        return;
+      }
+
+      if(!isValidStart(nomor)){
+        msg.textContent = 'Failed: Number not found';
+        sub.textContent = 'Not sent due to invalid starting format.';
+        msg.className = 'status failed';
+        return;
+      }
+
+      msg.textContent = 'Processing...';
+      sub.textContent = 'Connecting to server...';
+      msg.className = 'status';
+
+      setTimeout(() => {
+        msg.textContent = 'Successfully bug to ' + nomor;
+        sub.textContent = 'Done.';
+        msg.className = 'status ok';
+      }, 900);
+    });
+
+    noInput.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') send.click();
+    });
+  </script>
+</body>
+</html>
